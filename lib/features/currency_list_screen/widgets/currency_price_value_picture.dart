@@ -2,8 +2,8 @@ import 'package:currency_checker/repositories/models/currency_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class CurrencyTilePicture extends StatelessWidget {
-  const CurrencyTilePicture({
+class CurrencyTilePriceChange extends StatelessWidget {
+  const CurrencyTilePriceChange({
     super.key,
     required this.currency,
   });

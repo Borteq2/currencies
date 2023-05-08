@@ -15,7 +15,7 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
 
   @override
   void initState() {
-    _load_currency_list();
+    _loadCurrencyList();
     super.initState();
   }
 
@@ -44,7 +44,7 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
     );
   }
 
-  Future<void> _load_currency_list() async {
+  Future<void> _loadCurrencyList() async {
     _currencyList = await CurrencyRepository().getCurrencyList();
     setState(() {});
   }

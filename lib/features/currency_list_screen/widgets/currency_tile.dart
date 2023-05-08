@@ -17,7 +17,7 @@ class CurrencyTile extends StatelessWidget {
     final theme = Theme.of(context);
     return ListTile(
       // leading: currencyTilePicture(currencyName: currency.name),
-      leading: CurrencyTilePicture(currency: currency),
+      leading: CurrencyTilePriceChange(currency: currency),
       title: Text(
         currency.name,
         style: theme.textTheme.bodyMedium,
