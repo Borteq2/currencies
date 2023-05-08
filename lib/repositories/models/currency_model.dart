@@ -5,6 +5,6 @@ class Currency {
   });
 
   final String name;
-  final double priceInRoubles;
+  final dynamic priceInRoubles;
 
 }
