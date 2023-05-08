@@ -4,7 +4,7 @@ import '../models/currency_model.dart';
 class CurrencyRepository {
   Future<List<Currency>> getCurrencyList() async {
     String url =
-        'https://min-api.cryptocompare.com/data/pricemulti?fsyms=USD,EUR,USDT,BTC,DOGE&tsyms=USD,EUR,RUB';
+        'https://min-api.cryptocompare.com/data/pricemulti?fsyms=USD,EUR,MDL,USDT,BTC,DOGE&tsyms=RUB';
     final response = await Dio().get(url);
 
     final data = response.data as Map<String, dynamic>;

@@ -12,13 +12,13 @@ class currencyTilePicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
-      currencyName == 'Euro'
+      currencyName == 'EUR'
           ? 'lib/assets/svg/EURO.svg'
-          : currencyName == 'Usd'
+          : currencyName == 'USD'
           ? 'lib/assets/svg/USD.svg'
-          : currencyName == 'Rouble'
-          ? 'lib/assets/svg/RUBL.svg'
-          : 'unexpected',
+          : currencyName == 'RUB'
+          ? 'lib/assets/svg/RUB.svg'
+          : 'lib/assets/svg/unexpected.svg',
       height: 30,
       width: 30,
     );

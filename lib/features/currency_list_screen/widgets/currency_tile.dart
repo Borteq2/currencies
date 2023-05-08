@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import '../../../repositories/models/currency_model.dart';
 import 'currency_tile_picture.dart';
 
 class CurrencyTile extends StatelessWidget {
   const CurrencyTile({
     super.key,
-    required this.currencyName,
+    required this.currency,
   });
 
-  final String currencyName;
+  final Currency currency;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ListTile(
-      leading: currencyTilePicture(currencyName: currencyName),
+      leading: currencyTilePicture(currencyName: currency.name),
       title: Text(
-        currencyName,
+        currency.name,
         style: theme.textTheme.bodyMedium,
       ),
       subtitle: Text(
-        '20000 P',
+        '${currency.priceInRoubles} ₽',
         style: theme.textTheme.labelSmall,
       ),
       trailing: const Icon(Icons.arrow_forward_ios),
@@ -27,7 +28,7 @@ class CurrencyTile extends StatelessWidget {
         // билдер передает контекст в результат стрелки
         Navigator.of(context).pushNamed(
           '/currency',
-          arguments: currencyName,
+          arguments: currency,
         );
       },
     );
