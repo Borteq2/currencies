@@ -1,7 +1,12 @@
+import 'dart:async';
+
+import 'package:currency_checker/theme/myDarkTheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../repositories/repositories.dart';
+import '../bloc/currency_list_bloc.dart';
 import '../widgets/widgets.dart';
 
 class CurrencyListScreen extends StatefulWidget {
@@ -12,41 +17,86 @@ class CurrencyListScreen extends StatefulWidget {
 }
 
 class _CurrencyListScreenState extends State<CurrencyListScreen> {
-  List<Currency>? _currencyList;
+  final _currencyListBloc = CurrencyListBloc(
+    GetIt.I<AbstractCurrencyRepository>(),
+  );
 
   @override
   void initState() {
-    _loadCurrencyList();
+    // вызов эвента блока
+    _currencyListBloc.add(
+      LoadCurrencyList(),
+    );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var theme = myDarkTheme;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Currencies List'),
         centerTitle: true,
         leading: const Icon(Icons.arrow_back),
       ),
-      // вместо builder - separated, так будет разделитель
-      body: (_currencyList == null)
-          ? const Center(child: CircularProgressIndicator())
-          : ListView.separated(
-              padding: const EdgeInsets.only(top: 16),
-              // если не указать, то будет бесконечно
-              // !.length означает что там ТОЧНО не нул
-              itemCount: _currencyList!.length,
-              separatorBuilder: (context, index) => const Divider(),
-              itemBuilder: (context, i) {
-                final currency = _currencyList![i];
-                return CurrencyTile(currency: currency);
-              },
-            ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          // говорит о том что асинк завершился
+          final completer = Completer();
+          _currencyListBloc.add(
+            LoadCurrencyList(completer: completer),
+          );
+          return completer.future;
+        },
+        child: BlocBuilder<CurrencyListBloc, CurrencyListState>(
+          bloc: _currencyListBloc,
+          builder: (context, state) {
+            if (state is CurrencyListLoaded) {
+              return ListView.separated(
+                padding: const EdgeInsets.only(top: 16),
+                itemCount: state.currencyList.length,
+                separatorBuilder: (context, index) => const Divider(),
+                itemBuilder: (context, i) {
+                  final currency = state.currencyList[i];
+                  return CurrencyTile(currency: currency);
+                },
+              );
+            }
+            if (state is CurrencyListLoadingFailed) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Something went wrong',
+                      style: theme.textTheme.headlineMedium,
+                    ),
+                    Text(
+                      'Please try again later',
+                      style: theme.textTheme.labelSmall?.copyWith(fontSize: 16),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        _currencyListBloc.add(
+                          LoadCurrencyList(),
+                        );
+                      },
+                      child: const Text('Try again'),
+                    )
+                  ],
+                ),
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
+      ),
     );
-  }
-
-  Future<void> _loadCurrencyList() async {
-    _currencyList = await GetIt.I<AbstractCurrencyRepository>().getCurrencyList();
-    setState(() {});
   }
 }
