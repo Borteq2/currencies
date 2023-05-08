@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../../repositories/repositories.dart';
 import '../widgets/widgets.dart';
@@ -45,7 +46,7 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
   }
 
   Future<void> _loadCurrencyList() async {
-    _currencyList = await CurrencyRepository().getCurrencyList();
+    _currencyList = await GetIt.I<AbstractCurrencyRepository>().getCurrencyList();
     setState(() {});
   }
 }

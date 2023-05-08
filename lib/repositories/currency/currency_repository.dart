@@ -5,13 +5,18 @@ import '../abstract_currency_repository.dart';
 import '../models/currency_model.dart';
 
 class CurrencyRepository implements AbstractCurrencyRepository{
+  CurrencyRepository({
+    required this.dio
+  });
+
+  final Dio dio;
 
   @override
   Future<List<Currency>> getCurrencyList() async {
     // String url =
     //     'https://min-api.cryptocompare.com/data/pricemulti?fsyms=USD,EUR,MDL,USDT,BTC,DOGE&tsyms=RUB';
     String url = 'https://www.cbr-xml-daily.ru/daily_json.js';
-    final response = await Dio().get(url);
+    final response = await dio.get(url);
     final data = jsonDecode(response.data)['Valute'] as Map<String, dynamic>;
 
     // entries отвечает за отображение всех элементов мапы в виде списка
