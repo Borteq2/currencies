@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
-import '../../../repositories/models/currency_model.dart';
+
+import '../../../repositories/repositories.dart';
 import 'currency_price_value_picture.dart';
 
 

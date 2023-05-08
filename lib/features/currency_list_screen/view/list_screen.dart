@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../repositories/currency/currency_repository.dart';
-import '../../../repositories/models/currency_model.dart';
+
+import '../../../repositories/repositories.dart';
 import '../widgets/widgets.dart';
 
 class CurrencyListScreen extends StatefulWidget {

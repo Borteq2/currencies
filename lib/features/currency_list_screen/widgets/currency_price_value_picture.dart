@@ -1,6 +1,8 @@
-import 'package:currency_checker/repositories/models/currency_model.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../../repositories/repositories.dart';
 
 class CurrencyTilePriceChange extends StatelessWidget {
   const CurrencyTilePriceChange({

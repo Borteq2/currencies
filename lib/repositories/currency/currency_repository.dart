@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import '../abstract_currency_repository.dart';
 import '../models/currency_model.dart';
 
-class CurrencyRepository {
+class CurrencyRepository implements AbstractCurrencyRepository{
+
+  @override
   Future<List<Currency>> getCurrencyList() async {
     // String url =
     //     'https://min-api.cryptocompare.com/data/pricemulti?fsyms=USD,EUR,MDL,USDT,BTC,DOGE&tsyms=RUB';
