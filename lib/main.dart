@@ -43,29 +43,21 @@ class CurrenciesListApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const MyHomePage(title: 'Currencies List'),
+      home: const CurrenciesListScreen(title: 'Currencies List'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class CurrenciesListScreen extends StatefulWidget {
+  const CurrenciesListScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<CurrenciesListScreen> createState() => _CurrenciesListScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class _CurrenciesListScreenState extends State<CurrenciesListScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -84,13 +76,13 @@ class _MyHomePageState extends State<MyHomePage> {
         // билдеру надо передавать контекст и индекс, а после стрелки - что он будет билдить
         itemBuilder: (context, i) => ListTile(
           leading: SvgPicture.asset(
-            'lib/assets/svg/ru_rouble.svg',
+            'lib/assets/svg/USD.svg',
             height: 30,
             width: 30,
             color: Colors.white,
           ),
           title: Text(
-            'Currency',
+            'Dollar',
             style: theme.textTheme.bodyMedium,
           ),
           subtitle: Text(
@@ -98,7 +90,29 @@ class _MyHomePageState extends State<MyHomePage> {
             style: theme.textTheme.labelSmall,
           ),
           trailing: const Icon(Icons.arrow_forward_ios),
+          onTap: () {
+            // билдер передает контекст в результат стрелки
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => CurrencyScreen(),
+              ),
+            );
+          },
         ),
+      ),
+    );
+  }
+}
+
+class CurrencyScreen extends StatelessWidget {
+  const CurrencyScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Dollar'),
+        centerTitle: true,
       ),
     );
   }
