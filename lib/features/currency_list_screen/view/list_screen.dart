@@ -14,6 +14,12 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
   List<Currency>? _currencyList;
 
   @override
+  void initState() {
+    _load_currency_list();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -23,8 +29,9 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
       ),
       // вместо builder - separated, так будет разделитель
       body: (_currencyList == null)
-          ? const SizedBox()
+          ? const Center(child: CircularProgressIndicator())
           : ListView.separated(
+              padding: const EdgeInsets.only(top: 16),
               // если не указать, то будет бесконечно
               // !.length означает что там ТОЧНО не нул
               itemCount: _currencyList!.length,
@@ -34,12 +41,11 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
                 return CurrencyTile(currency: currency);
               },
             ),
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.get_app),
-          onPressed: () async {
-            _currencyList = await CurrencyRepository().getCurrencyList();
-            setState(() {});
-          }),
     );
+  }
+
+  Future<void> _load_currency_list() async {
+    _currencyList = await CurrencyRepository().getCurrencyList();
+    setState(() {});
   }
 }

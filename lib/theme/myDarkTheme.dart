@@ -8,6 +8,7 @@ final myDarkTheme = ThemeData(
     color: Colors.white,
   ),
   appBarTheme: const AppBarTheme(
+    elevation: 0,
       backgroundColor: Color.fromARGB(255, 31, 31, 31),
       iconTheme: IconThemeData(
         color: Colors.white,
