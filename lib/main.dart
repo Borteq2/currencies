@@ -17,6 +17,9 @@ class CurrenciesListApp extends StatelessWidget {
         primarySwatch: Colors.yellow,
         scaffoldBackgroundColor: const Color.fromARGB(255, 31, 31, 31),
         dividerColor: Colors.white24,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         appBarTheme: const AppBarTheme(
             backgroundColor: Color.fromARGB(255, 31, 31, 31),
             iconTheme: IconThemeData(
@@ -74,43 +77,72 @@ class _CurrenciesListScreenState extends State<CurrenciesListScreen> {
         // если не указать, то будет бесконечно
         itemCount: 10,
         separatorBuilder: (context, index) => const Divider(),
-        // билдеру надо передавать контекст и индекс, а после стрелки - что он будет билдить
-        itemBuilder: (context, i) => ListTile(
-          leading: SvgPicture.asset(
-            'lib/assets/svg/USD.svg',
-            height: 30,
-            width: 30,
-            color: Colors.white,
-          ),
-          title: Text(
-            'Dollar',
-            style: theme.textTheme.bodyMedium,
-          ),
-          subtitle: Text(
-            '20000 P',
-            style: theme.textTheme.labelSmall,
-          ),
-          trailing: const Icon(Icons.arrow_forward_ios),
-          onTap: () {
-            // билдер передает контекст в результат стрелки
-            Navigator.of(context).pushNamed(
-              '/currency'
-            );
-          },
-        ),
+        itemBuilder: (context, i) {
+          const currencyName = 'Rouble';
+          return ListTile(
+            leading: SvgPicture.asset(
+              currencyName == 'Euro'
+                  ? 'lib/assets/svg/EURO.svg'
+                  : currencyName == 'Usd'
+                      ? 'lib/assets/svg/USD.svg'
+                      : currencyName == 'Rouble'
+                          ? 'lib/assets/svg/RUBL.svg'
+                          : 'unexpected',
+              height: 30,
+              width: 30,
+            ),
+            title: Text(
+              currencyName,
+              style: theme.textTheme.bodyMedium,
+            ),
+            subtitle: Text(
+              '20000 P',
+              style: theme.textTheme.labelSmall,
+            ),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              // билдер передает контекст в результат стрелки
+              Navigator.of(context).pushNamed(
+                '/currency',
+                arguments: currencyName,
+              );
+            },
+          );
+        },
       ),
     );
   }
 }
 
-class CurrencyScreen extends StatelessWidget {
+class CurrencyScreen extends StatefulWidget {
   const CurrencyScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CurrencyScreen> createState() => _CurrencyScreenState();
+}
+
+class _CurrencyScreenState extends State<CurrencyScreen> {
+  String? currencyName;
+
+  @override
+  void didChangeDependencies() {
+    // объект для получения аргументов из настроек контекста
+    final args = ModalRoute.of(context)?.settings.arguments;
+
+    assert(args != null && args is String, 'You must provide String args');
+
+    currencyName = args as String?;
+
+    setState(() {});
+
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dollar'),
+        title: Text(currencyName ?? '...'),
         centerTitle: true,
       ),
     );
