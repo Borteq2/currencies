@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import '../../../repositories/currency/currency_repository.dart';
 import '../widgets/widgets.dart';
 
-class CurrenciesListScreen extends StatefulWidget {
-  const CurrenciesListScreen({super.key});
+class CurrencyListScreen extends StatefulWidget {
+  const CurrencyListScreen({super.key});
 
   @override
-  State<CurrenciesListScreen> createState() => _CurrenciesListScreenState();
+  State<CurrencyListScreen> createState() => _CurrencyListScreenState();
 }
 
-class _CurrenciesListScreenState extends State<CurrenciesListScreen> {
+class _CurrencyListScreenState extends State<CurrencyListScreen> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Currencies List'),
@@ -28,7 +28,11 @@ class _CurrenciesListScreenState extends State<CurrenciesListScreen> {
           return const CurrencyTile(currencyName: currencyName);
         },
       ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.get_app),
+          onPressed: () {
+            CurrencyRepository().getCurrencyList();
+          }),
     );
   }
 }
-
