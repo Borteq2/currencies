@@ -43,15 +43,16 @@ class CurrenciesListApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const CurrenciesListScreen(title: 'Currencies List'),
+      routes: {
+        '/': (context) => CurrenciesListScreen(),
+        '/currency': (context) => CurrencyScreen(),
+      },
     );
   }
 }
 
 class CurrenciesListScreen extends StatefulWidget {
-  const CurrenciesListScreen({super.key, required this.title});
-
-  final String title;
+  const CurrenciesListScreen({super.key});
 
   @override
   State<CurrenciesListScreen> createState() => _CurrenciesListScreenState();
@@ -64,7 +65,7 @@ class _CurrenciesListScreenState extends State<CurrenciesListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Currencies List'),
         centerTitle: true,
         leading: const Icon(Icons.arrow_back),
       ),
@@ -92,10 +93,8 @@ class _CurrenciesListScreenState extends State<CurrenciesListScreen> {
           trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             // билдер передает контекст в результат стрелки
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => CurrencyScreen(),
-              ),
+            Navigator.of(context).pushNamed(
+              '/currency'
             );
           },
         ),
