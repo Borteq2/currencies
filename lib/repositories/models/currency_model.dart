@@ -1,4 +1,6 @@
-class Currency {
+import 'package:equatable/equatable.dart';
+
+class Currency extends Equatable {
   Currency({
     required this.name,
     required this.priceInRoubles,
@@ -9,4 +11,6 @@ class Currency {
   final dynamic priceInRoubles;
   final dynamic prev;
 
+  @override
+  List<Object> get props => [name, priceInRoubles, prev];
 }

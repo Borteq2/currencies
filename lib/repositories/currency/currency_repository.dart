@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:dio/dio.dart';
 import '../abstract_currency_repository.dart';
 import '../models/currency_model.dart';
@@ -28,11 +27,10 @@ class CurrencyRepository implements AbstractCurrencyRepository{
     // на каждой итерации возвращает Currency и пополняет список аппэндом
     final currencyList = data.entries.map((e) {
       var values = (e.value as Map<String, dynamic>);
-      final name = values['Name'];
+      // final name = values['Name'];
       final nominal = values['Nominal'];
       var priceInRoubles = values['Value'];
       var prev = values['Previous'];
-      log(name);
 
       if (nominal != 1) {
         priceInRoubles = priceInRoubles / nominal;

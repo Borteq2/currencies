@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../repositories/repositories.dart';
@@ -15,17 +16,13 @@ class CurrencyListBloc extends Bloc<CurrencyListEvent, CurrencyListState> {
     on<LoadCurrencyList>(
       (event, emit) async {
         try {
-          emit(
-            CurrencyListLoading(),
-          );
+          if (state is! CurrencyListLoaded) {
+            emit(CurrencyListLoading());
+          }
           final currencyList = await currencyRepository.getCurrencyList();
-          emit(
-            CurrencyListLoaded(currencyList: currencyList),
-          );
+          emit(CurrencyListLoaded(currencyList: currencyList));
         } catch (e) {
-          emit(
-            CurrencyListLoadingFailed(exception: e),
-          );
+          emit(CurrencyListLoadingFailed(exception: e));
         } finally {
           // если он есть, то завершить, если нет - то ничего не делать
           event.completer?.complete();
