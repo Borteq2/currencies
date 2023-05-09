@@ -29,7 +29,6 @@ class CurrencyTile extends StatelessWidget {
       ),
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {
-        // билдер передает контекст в результат стрелки
         Navigator.of(context).pushNamed(
           '/currency',
           arguments: currency,

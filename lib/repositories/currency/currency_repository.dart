@@ -5,7 +5,7 @@ import '../models/currency_model.dart';
 
 class CurrencyRepository implements AbstractCurrencyRepository {
   CurrencyRepository({
-    required this.dio
+    required this.dio,
   });
 
   final Dio dio;
@@ -49,8 +49,8 @@ class CurrencyRepository implements AbstractCurrencyRepository {
 
   @override
   Future<Currency> getCurrency() async {
-
-    final currency = Currency(name: 'название валюты доделай', priceInRoubles: 500, prev: 250);
+    const currency =
+        Currency(name: 'name', priceInRoubles: 'priceInRoubles', prev: 'prev');
     return currency;
   }
 }

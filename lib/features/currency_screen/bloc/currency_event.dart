@@ -4,6 +4,10 @@ part of 'currency_bloc.dart';
 abstract class CurrencyEvent {}
 
 class CurrencyLoad extends CurrencyEvent {
+  final Currency args;
 
+  CurrencyLoad({
+    required this.args
+  });
 }
 

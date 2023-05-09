@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Currency extends Equatable {
-  Currency({
+  const Currency({
     required this.name,
     required this.priceInRoubles,
     required this.prev,

@@ -19,14 +19,15 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
 
   @override
   void initState() {
-    _currencyBloc.add(CurrencyLoad());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
+    final args = ModalRoute.of(context)?.settings.arguments as Currency;
+    _currencyBloc.add(CurrencyLoad(args: args));
     var theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -34,7 +35,15 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
           bloc: _currencyBloc,
           builder: (context, state) {
             if (state is CurrencyLoaded) {
-              return Text(state.currency.name);
+              return Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(args.name.toString()),
+                  Text(args.priceInRoubles.toString()),
+                  Text(args.prev.toString()),
+                ],
+              ));
             }
             if (state is CurrencyLoadingFailed) {
               return Center(
