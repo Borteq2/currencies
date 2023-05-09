@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-
 import '../../../repositories/repositories.dart';
+import '../../currency_list_screen/widgets/currency_price_value_picture.dart';
 import '../bloc/currency_bloc.dart';
+import '../widgets/widgets.dart';
 
 class CurrencyScreen extends StatefulWidget {
-  CurrencyScreen({
+  const CurrencyScreen({
     Key? key,
   }) : super(key: key);
 
@@ -35,14 +36,38 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
           bloc: _currencyBloc,
           builder: (context, state) {
             if (state is CurrencyLoaded) {
+              String currencyName = state.currency.name;
+              String currencyFullName = 'полное название валюты'.toUpperCase();
+              double todayPrice = state.currency.priceInRoubles;
+              double yesterdayPrice = state.currency.prev;
+
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-
-                    Text(state.currency.name.toString()),
-                    Text(state.currency.priceInRoubles.toString()),
-                    Text(state.currency.prev.toString()),
+                    SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: Text(currencyName),
+                    ),
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: CurrencyTilePriceChange(currency: state.currency),
+                    ),
+                    const SizedBox(height: 24),
+                    BaseCard(
+                      child: Text(
+                        currencyFullName,
+                        style: theme.textTheme.headlineMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    PriceCard(
+                        todayPrice: todayPrice,
+                        yesterdayPrice: yesterdayPrice),
                   ],
                 ),
               );
