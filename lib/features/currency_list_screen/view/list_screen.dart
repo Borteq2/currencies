@@ -4,6 +4,7 @@ import 'package:currency_checker/theme/myDarkTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 import '../../../repositories/repositories.dart';
 import '../bloc/currency_list_bloc.dart';
@@ -36,7 +37,18 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
       appBar: AppBar(
         title: const Text('Currencies List'),
         centerTitle: true,
-        leading: const Icon(Icons.arrow_back),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => TalkerScreen(
+                    talker: GetIt.I<Talker>(),
+                  ),
+                ));
+              },
+              icon: Icon(Icons.document_scanner_outlined))
+        ],
+        // leading: const Icon(Icons.arrow_back),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
