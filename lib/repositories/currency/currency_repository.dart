@@ -37,11 +37,15 @@ class CurrencyRepository implements AbstractCurrencyRepository {
         prev = prev / nominal;
       }
 
+      double currencyInRoubles = 1 / priceInRoubles;
+
+
       return Currency(
         name: e.key,
         fullName: fullName,
         priceInRoubles: priceInRoubles,
         prev: prev,
+        currencyInRoubles: currencyInRoubles
       );
     }).toList();
 
@@ -55,7 +59,8 @@ class CurrencyRepository implements AbstractCurrencyRepository {
             name: args.name,
             fullName: args.fullName,
             priceInRoubles: args.priceInRoubles,
-            prev: args.prev
+            prev: args.prev,
+            currencyInRoubles: args.currencyInRoubles,
         );
     return currency;
   }

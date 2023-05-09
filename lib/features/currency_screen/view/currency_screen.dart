@@ -38,8 +38,11 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
             if (state is CurrencyLoaded) {
               String currencyName = state.currency.name;
               String currencyFullName = state.currency.fullName.toUpperCase();
-              double todayPrice = state.currency.priceInRoubles;
-              double yesterdayPrice = state.currency.prev;
+              String todayPrice =
+                  state.currency.priceInRoubles.toStringAsFixed(2);
+              String yesterdayPrice = state.currency.prev.toStringAsFixed(2);
+              String currencyInRoubles =
+                  state.currency.currencyInRoubles.toStringAsFixed(2);
 
               return Center(
                 child: Column(
@@ -50,10 +53,12 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          child: Text(currencyName,
-                          style: const TextStyle(
-                            fontSize: 30,
-                          ),),
+                          child: Text(
+                            currencyName,
+                            style: const TextStyle(
+                              fontSize: 30,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -72,8 +77,18 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
                       ),
                     ),
                     PriceCard(
-                        todayPrice: todayPrice,
-                        yesterdayPrice: yesterdayPrice),
+                      todayPrice: todayPrice,
+                      yesterdayPrice: yesterdayPrice,
+                    ),
+                    BaseCard(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Roubles per unit:'),
+                          Text(currencyInRoubles),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               );

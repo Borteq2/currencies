@@ -8,31 +8,30 @@ class PriceCard extends StatelessWidget {
     required this.yesterdayPrice,
   });
 
-  final double todayPrice;
-  final double yesterdayPrice;
+  final String todayPrice;
+  final String yesterdayPrice;
 
   @override
   Widget build(BuildContext context) {
     return BaseCard(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text('Today price',
-                  textAlign: TextAlign.left),
-              Text('Yesterday price',
-                  textAlign: TextAlign.left),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text('Today price', textAlign: TextAlign.left),
+                  Text('Yesterday price', textAlign: TextAlign.left),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [Text(todayPrice), Text(yesterdayPrice)],
+              ),
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text('$todayPrice'),
-              Text('$yesterdayPrice')
-            ],
-          )
         ],
       ),
     );
