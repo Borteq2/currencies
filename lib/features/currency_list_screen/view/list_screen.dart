@@ -17,9 +17,8 @@ class CurrencyListScreen extends StatefulWidget {
 }
 
 class _CurrencyListScreenState extends State<CurrencyListScreen> {
-  final _currencyListBloc = CurrencyListBloc(
-    GetIt.I<AbstractCurrencyRepository>(),
-  );
+  final _currencyListBloc =
+      CurrencyListBloc(GetIt.I<AbstractCurrencyRepository>());
 
   @override
   void initState() {

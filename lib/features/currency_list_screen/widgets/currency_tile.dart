@@ -27,8 +27,6 @@ class CurrencyTile extends StatelessWidget {
         ' Today: ${currency.priceInRoubles} ₽\n Yesterday: ${currency.prev} ₽',
         style: theme.textTheme.labelSmall,
       ),
-
-
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {
         // билдер передает контекст в результат стрелки

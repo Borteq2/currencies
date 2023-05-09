@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import '../abstract_currency_repository.dart';
 import '../models/currency_model.dart';
 
-class CurrencyRepository implements AbstractCurrencyRepository{
+class CurrencyRepository implements AbstractCurrencyRepository {
   CurrencyRepository({
     required this.dio
   });
@@ -41,8 +41,16 @@ class CurrencyRepository implements AbstractCurrencyRepository{
         name: e.key,
         priceInRoubles: priceInRoubles,
         prev: prev,
-      );}).toList();
+      );
+    }).toList();
 
     return currencyList;
+  }
+
+  @override
+  Future<Currency> getCurrency() async {
+
+    final currency = Currency(name: 'название валюты доделай', priceInRoubles: 500, prev: 250);
+    return currency;
   }
 }
