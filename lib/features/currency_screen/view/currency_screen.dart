@@ -37,7 +37,7 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
           builder: (context, state) {
             if (state is CurrencyLoaded) {
               String currencyName = state.currency.name;
-              String currencyFullName = 'полное название валюты'.toUpperCase();
+              String currencyFullName = state.currency.fullName.toUpperCase();
               double todayPrice = state.currency.priceInRoubles;
               double yesterdayPrice = state.currency.prev;
 
@@ -46,10 +46,16 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: Text(currencyName),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          child: Text(currencyName,
+                          style: const TextStyle(
+                            fontSize: 30,
+                          ),),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 24),
                     SizedBox(

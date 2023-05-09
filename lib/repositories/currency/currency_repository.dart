@@ -27,7 +27,7 @@ class CurrencyRepository implements AbstractCurrencyRepository {
     // на каждой итерации возвращает Currency и пополняет список аппэндом
     final currencyList = data.entries.map((e) {
       var values = (e.value as Map<String, dynamic>);
-      // final name = values['Name'];
+      final fullName = values['Name'];
       final nominal = values['Nominal'];
       var priceInRoubles = values['Value'];
       var prev = values['Previous'];
@@ -39,6 +39,7 @@ class CurrencyRepository implements AbstractCurrencyRepository {
 
       return Currency(
         name: e.key,
+        fullName: fullName,
         priceInRoubles: priceInRoubles,
         prev: prev,
       );
@@ -52,6 +53,7 @@ class CurrencyRepository implements AbstractCurrencyRepository {
     final currency =
         Currency(
             name: args.name,
+            fullName: args.fullName,
             priceInRoubles: args.priceInRoubles,
             prev: args.prev
         );
