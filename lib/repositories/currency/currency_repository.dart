@@ -48,9 +48,13 @@ class CurrencyRepository implements AbstractCurrencyRepository {
   }
 
   @override
-  Future<Currency> getCurrency() async {
-    const currency =
-        Currency(name: 'name', priceInRoubles: 'priceInRoubles', prev: 'prev');
+  Future<Currency> getCurrency(args) async {
+    final currency =
+        Currency(
+            name: args.name,
+            priceInRoubles: args.priceInRoubles,
+            prev: args.prev
+        );
     return currency;
   }
 }

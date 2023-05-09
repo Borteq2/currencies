@@ -36,14 +36,16 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
           builder: (context, state) {
             if (state is CurrencyLoaded) {
               return Center(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(args.name.toString()),
-                  Text(args.priceInRoubles.toString()),
-                  Text(args.prev.toString()),
-                ],
-              ));
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                    Text(state.currency.name.toString()),
+                    Text(state.currency.priceInRoubles.toString()),
+                    Text(state.currency.prev.toString()),
+                  ],
+                ),
+              );
             }
             if (state is CurrencyLoadingFailed) {
               return Center(
