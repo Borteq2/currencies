@@ -46,7 +46,7 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
                   ),
                 ));
               },
-              icon: Icon(Icons.document_scanner_outlined))
+              icon: const Icon(Icons.document_scanner_outlined))
         ],
         // leading: const Icon(Icons.arrow_back),
       ),

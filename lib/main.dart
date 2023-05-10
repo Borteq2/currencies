@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:currency_checker/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,11 +12,16 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'currency_list_app.dart';
 import 'repositories/repositories.dart';
 
-void main() {
+void main() async {
   final talker = TalkerFlutter.init();
 
   GetIt.I.registerSingleton(talker);
   GetIt.instance<Talker>().debug('Talker started...');
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   final dio = Dio();
   dio.interceptors.add(TalkerDioLogger(
