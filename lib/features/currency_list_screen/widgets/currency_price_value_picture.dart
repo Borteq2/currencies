@@ -15,7 +15,7 @@ class CurrencyTilePriceChange extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
-      currency.priceInRoubles > currency.prev
+      currency.priceInRoubles > currency.previous
       ? 'lib/assets/svg/UP.svg'
       : 'lib/assets/svg/DOWN.svg',
       height: 30,

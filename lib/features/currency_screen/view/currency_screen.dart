@@ -40,9 +40,10 @@ class _CurrencyScreenState extends State<CurrencyScreen> {
               String currencyFullName = state.currency.fullName.toUpperCase();
               String todayPrice =
                   state.currency.priceInRoubles.toStringAsFixed(2);
-              String yesterdayPrice = state.currency.prev.toStringAsFixed(2);
+              String yesterdayPrice =
+                  state.currency.previous.toStringAsFixed(2);
               String currencyInRoubles =
-                  state.currency.currencyInRoubles.toStringAsFixed(2);
+                  (1 / state.currency.priceInRoubles).toStringAsFixed(2);
 
               return Center(
                 child: Column(

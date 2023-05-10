@@ -14,7 +14,7 @@ class CurrencyTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String priceInRoubles = currency.priceInRoubles.toStringAsFixed(2);
-    String prev = currency.prev.toStringAsFixed(2);
+    String previous = currency.previous.toStringAsFixed(2);
 
     final theme = Theme.of(context);
     return ListTile(
@@ -49,7 +49,7 @@ class CurrencyTile extends StatelessWidget {
                 textAlign: TextAlign.left,
               ),
               Text(
-                '$prev ₽',
+                '$previous ₽',
                 style: theme.textTheme.labelSmall,
               ),
             ],
