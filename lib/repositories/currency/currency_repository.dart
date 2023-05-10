@@ -1,20 +1,39 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import '../abstract_currency_repository.dart';
 import '../models/currency_model.dart';
 
 class CurrencyRepository implements AbstractCurrencyRepository {
   CurrencyRepository({
+    required this.currencyBox,
     required this.dio,
   });
 
   final Dio dio;
+  final Box<Currency> currencyBox;
 
   @override
   Future<List<Currency>> getCurrencyList() async {
-    // String url =
-    //     'https://min-api.cryptocompare.com/data/pricemulti?fsyms=USD,EUR,MDL,USDT,BTC,DOGE&tsyms=RUB';
+    var currencyList = <Currency>[];
     String url = 'https://www.cbr-xml-daily.ru/daily_json.js';
+
+    try {
+
+      currencyList = await _fetchCurrencyListFromApi(url);
+      final currencyMap = {for (var e in currencyList) e.name: e};
+      await currencyBox.putAll(currencyMap);
+    } catch (e, st) {
+
+      GetIt.I<Talker>().handle(e, st);
+      return currencyBox.values.toList();
+    }
+    return currencyList;
+  }
+
+  Future<List<Currency>> _fetchCurrencyListFromApi(String url) async {
     final response = await dio.get(url);
     final data = jsonDecode(response.data)['Valute'] as Map<String, dynamic>;
 
@@ -45,19 +64,17 @@ class CurrencyRepository implements AbstractCurrencyRepository {
         previous: previous,
       );
     }).toList();
-
     return currencyList;
   }
 
   @override
   Future<Currency> getCurrency(args) async {
-    final currency =
-        Currency(
-            name: args.name,
-            fullName: args.fullName,
-            priceInRoubles: args.priceInRoubles,
-            previous: args.previous,
-        );
+    final currency = Currency(
+      name: args.name,
+      fullName: args.fullName,
+      priceInRoubles: args.priceInRoubles,
+      previous: args.previous,
+    );
     return currency;
   }
 }
