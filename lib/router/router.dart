@@ -4,5 +4,5 @@ import '../features/currency_screen/currency_screen.dart';
 
 final routes = {
   '/': (context) => const CurrencyListScreen(),
-  '/currency': (context) => CurrencyScreen(),
+  '/currency': (context) => const CurrencyScreen(),
 };
