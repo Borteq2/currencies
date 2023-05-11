@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -10,6 +9,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+
 import 'currency_list_app.dart';
 import 'firebase_options.dart';
 import 'repositories/repositories.dart';
@@ -58,6 +58,6 @@ void main() async {
         details.stack,
       );
 
-  runZonedGuarded(() => runApp(const CurrenciesListApp()),
+  runZonedGuarded(() => runApp(CurrenciesListApp()),
       (error, stack) => GetIt.I<Talker>().handle(error, stack));
 }

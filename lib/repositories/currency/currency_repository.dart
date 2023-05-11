@@ -21,7 +21,6 @@ class CurrencyRepository implements AbstractCurrencyRepository {
     String url = 'https://www.cbr-xml-daily.ru/daily_json.js';
 
     try {
-
       currencyList = await _fetchCurrencyListFromApi(url);
       final currencyMap = {for (var e in currencyList) e.name: e};
       await currencyBox.putAll(currencyMap);
