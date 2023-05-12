@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:talker_flutter/talker_flutter.dart';
+
+import '../../ugly_navigation.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -14,6 +14,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   int _selectedIndex = 0;
   int thisPageIndex = 0;
 
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -23,32 +24,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   void _indexedRouting(int index) {
-    try {
-      switch (index) {
-        case 0:
-          Navigator.pushNamed(context, '/', arguments: thisPageIndex);
-          break;
-        case 1:
-          Navigator.pushNamed(context, '/favorites', arguments: thisPageIndex);
-          break;
-        case 2:
-          Navigator.pushNamed(context, '/list', arguments: thisPageIndex);
-          break;
-        case 3:
-          Navigator.pushNamed(context, '/crypto', arguments: thisPageIndex);
-          break;
-        default:
-          GetIt.I<Talker>().error('WRONG BOTTOM NAV INDEX');
-      }
-    } catch (e, st) {
-      GetIt.instance<Talker>().handle(e, st);
-    }
+    badNavigation(_selectedIndex, context, thisPageIndex);
   }
 
   @override
   Widget build(BuildContext context) {
-    Object? selectedIndex = ModalRoute.of(context)?.settings.arguments ?? _selectedIndex;
-    print('QWEQWE $selectedIndex');
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
@@ -61,7 +41,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       ),
       bottomNavigationBar: CupertinoTabBar(
         backgroundColor: Colors.black,
-        currentIndex: selectedIndex as int,
+        currentIndex: thisPageIndex,
         onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(

@@ -7,6 +7,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 import '../../../repositories/repositories.dart';
 import '../../../theme/myDarkTheme.dart';
+import '../../ugly_navigation.dart';
 import '../bloc/currency_list_bloc.dart';
 import '../widgets/widgets.dart';
 
@@ -24,42 +25,19 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
 
   @override
   void initState() {
-    // вызов эвента блока
     _currencyListBloc.add(LoadCurrencyList());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final Object? prevoiusIndex = ModalRoute.of(context)?.settings.arguments;
+    final Object? previousIndex = ModalRoute.of(context)?.settings.arguments;
 
     var theme = myDarkTheme;
     return WillPopScope(
         onWillPop: () async {
           Navigator.pop(context);
-          try {
-            switch (prevoiusIndex) {
-              case 0:
-                Navigator.pushNamed(context, '/', arguments: thisPageIndex);
-                break;
-              case 1:
-                Navigator.pushNamed(context, '/favorites',
-                    arguments: thisPageIndex);
-                break;
-              case 2:
-                Navigator.pushNamed(context, '/list', arguments: thisPageIndex);
-                break;
-              case 3:
-                Navigator.pushNamed(context, '/crypto',
-                    arguments: thisPageIndex);
-                break;
-              default:
-                GetIt.I<Talker>().error('WRONG BOTTOM NAV INDEX');
-            }
-          } catch (e, st) {
-            GetIt.instance<Talker>().handle(e, st);
-          }
-
+          badNavigation(previousIndex, context, thisPageIndex);
           return true; // если true, то страница закроется
         },
         child: Scaffold(
@@ -140,4 +118,6 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
           ),
         ));
   }
+
+
 }
