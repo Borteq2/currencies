@@ -18,11 +18,11 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
             context.read<CryptoListScreenBloc>().state;
         String? msg;
 
-        msg = (currentState is CryptoListScreenInitial)
+        msg = currentState is CryptoListScreenInitial
             ? msg = 'Initial'
-            : (currentState is CryptoListScreenLoading)
+            : currentState is CryptoListScreenLoading
                 ? msg = 'Loading'
-                : (currentState is CryptoListScreenLoaded)
+                : currentState is CryptoListScreenLoaded
                     ? msg = 'Loaded'
                     : msg = 'WRONG STATE';
 
