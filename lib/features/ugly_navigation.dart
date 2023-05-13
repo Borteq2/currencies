@@ -16,7 +16,7 @@ void badNavigation(Object? previousIndex, BuildContext context, int thisPageInde
         Navigator.pushNamed(context, '/list', arguments: thisPageIndex);
         break;
       case 3:
-        Navigator.pushNamed(context, '/crypto',
+        Navigator.pushNamed(context, '/crypto_list',
             arguments: thisPageIndex);
         break;
       default:
