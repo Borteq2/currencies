@@ -61,7 +61,7 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
                             ),
                           );
                     },
-                    child: Text('что я здесь делаю?'),
+                    child: const Text('что я здесь делаю?'),
                   ),
                 ),
               ],
